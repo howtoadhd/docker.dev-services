@@ -54,7 +54,7 @@ RUN set -x \
 COPY ./fs /
 COPY --from=composer /www /www
 
-EXPOSE 80 443 3306 8080 8081 8082 11211
+EXPOSE 80 443 3306 11211
 
 VOLUME ["/data"]
 
