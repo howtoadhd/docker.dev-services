@@ -5,6 +5,7 @@ RUN set -x \
         bash \
         mariadb \
         mariadb-client \
+        memcached \
         supervisor \
     && rm -rf \
         /var/lib/mysql \
@@ -13,7 +14,7 @@ RUN set -x \
 
 COPY ./fs /
 
-EXPOSE 3306
+EXPOSE 3306 11211
 
 VOLUME ["/data"]
 

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -e
+
+memcached \
+    -vv \
+    -u memcached\
+    -m 128 \
+    -l 0.0.0.0 \
+    -p 11211 \
+    -c 1024 \
+    -I 4M
