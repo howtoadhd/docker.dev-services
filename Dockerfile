@@ -6,6 +6,8 @@ RUN set -x \
         mariadb \
         mariadb-client \
         memcached \
+        nodejs \
+        nodejs-npm \
         openssl \
         ruby \
         supervisor \
@@ -13,11 +15,12 @@ RUN set -x \
         /var/lib/mysql \
     && mkdir -p /run/mysqld \
     && chown mysql:mysql /run/mysqld \
-    && gem install fakes3 --no-ri --no-rdoc
+    && gem install fakes3 --no-ri --no-rdoc \
+    && npm install aws-ses-local -g
 
 COPY ./fs /
 
-EXPOSE 3306 8081 11211
+EXPOSE 3306 8081 8082 11211
 
 VOLUME ["/data"]
 
