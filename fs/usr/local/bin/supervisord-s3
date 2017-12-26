@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+set -e
+
+fakes3 \
+    -r /data/s3 \
+    -p 8081

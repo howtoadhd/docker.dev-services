@@ -7,15 +7,17 @@ RUN set -x \
         mariadb-client \
         memcached \
         openssl \
+        ruby \
         supervisor \
     && rm -rf \
         /var/lib/mysql \
     && mkdir -p /run/mysqld \
-    && chown mysql:mysql /run/mysqld
+    && chown mysql:mysql /run/mysqld \
+    && gem install fakes3 --no-ri --no-rdoc
 
 COPY ./fs /
 
-EXPOSE 3306 11211
+EXPOSE 3306 8081 11211
 
 VOLUME ["/data"]
 
