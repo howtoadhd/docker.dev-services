@@ -33,12 +33,12 @@ jobs:
         - docker tag ${TEMP_IMAGE} builder:dev-services
       script:
         - |
-          if [ $$TRAVIS_PULL_REQUEST == 'false' ]; then
+          if [ $TRAVIS_PULL_REQUEST == 'false' ]; then
             docker tag builder:dev-services howtoadhd/dev-services:${TRAVIS_BRANCH};
             docker push howtoadhd/dev-services:${TRAVIS_BRANCH};
           fi
         - |
-          if [ $$TRAVIS_PULL_REQUEST == 'false' ] && [ $$TRAVIS_BRANCH == 'master' ]; then
+          if [ $TRAVIS_PULL_REQUEST == 'false' ] && [ $TRAVIS_BRANCH == 'master' ]; then
           	docker tag builder:dev-services howtoadhd/dev-services:latest;
           	docker push howtoadhd/dev-services:latest;
           fi
