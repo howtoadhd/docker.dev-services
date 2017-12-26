@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+sed -i -e "s/%%!ROOT_DOMAIN!%%/${ROOT_DOMAIN}/" /etc/haproxy.conf
+
+haproxy -f /etc/haproxy.conf

@@ -3,6 +3,7 @@ FROM alpine:3.6
 RUN set -x \
     && apk add --no-cache \
         bash \
+        haproxy \
         mariadb \
         mariadb-client \
         memcached \
@@ -13,6 +14,7 @@ RUN set -x \
         supervisor \
     && rm -rf \
         /var/lib/mysql \
+        /etc/haproxy \
     && mkdir -p /run/mysqld \
     && chown mysql:mysql /run/mysqld \
     && gem install fakes3 --no-ri --no-rdoc \
@@ -20,7 +22,7 @@ RUN set -x \
 
 COPY ./fs /
 
-EXPOSE 3306 8081 8082 11211
+EXPOSE 80 443 3306 8081 8082 11211
 
 VOLUME ["/data"]
 
