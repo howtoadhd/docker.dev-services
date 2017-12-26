@@ -10,6 +10,8 @@ export MYSQL_DATABASE="${MYSQL_DATABASE-app}"
 
 export ROOT_DOMAIN="${ROOT_DOMAIN-howtoadhd.pink}"
 
+export APP_BACKEND="${APP_BACKEND-nginx:80}"
+
 tls-gen
 
 # first arg is `-f` or `--some-option`

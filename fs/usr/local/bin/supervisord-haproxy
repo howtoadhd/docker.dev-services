@@ -2,5 +2,6 @@
 set -e
 
 sed -i -e "s/%%!ROOT_DOMAIN!%%/${ROOT_DOMAIN}/" /etc/haproxy.conf
+sed -i -e "s/%%!APP_BACKEND!%%/${APP_BACKEND}/" /etc/haproxy.conf
 
 haproxy -f /etc/haproxy.conf
