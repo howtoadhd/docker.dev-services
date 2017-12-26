@@ -3,12 +3,14 @@
   "type": "project",
   "require": {
     "oomphinc/composer-installers-extender": "^1.1",
+    "wp-cloud/phpmemcacheadmin": "*",
     "wp-cloud/phpmyadmin": "*"
   },
   "extra": {
     "installer-types": ["application"],
     "installer-paths": {
-      "/www/database-admin/": ["wp-cloud/phpmyadmin"]
+      "/www/database-admin/": ["wp-cloud/phpmyadmin"],
+      "/www/memcached-admin/": ["wp-cloud/phpmemcacheadmin"]
     }
   }
 }
