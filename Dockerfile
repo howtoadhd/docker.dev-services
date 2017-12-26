@@ -7,6 +7,7 @@ RUN set -x \
         mariadb \
         mariadb-client \
         memcached \
+        nginx \
         nodejs \
         nodejs-npm \
         openssl \
@@ -15,6 +16,7 @@ RUN set -x \
     && rm -rf \
         /var/lib/mysql \
         /etc/haproxy \
+        /etc/nginx \
     && mkdir -p /run/mysqld \
     && chown mysql:mysql /run/mysqld \
     && gem install fakes3 --no-ri --no-rdoc \
@@ -22,7 +24,7 @@ RUN set -x \
 
 COPY ./fs /
 
-EXPOSE 80 443 3306 8081 8082 11211
+EXPOSE 80 443 3306 8080 8081 8082 11211
 
 VOLUME ["/data"]
 
