@@ -1,0 +1,14 @@
+{
+  "name": "howtoadhd/dev-services",
+  "type": "project",
+  "require": {
+    "oomphinc/composer-installers-extender": "^1.1",
+    "wp-cloud/phpmyadmin": "*"
+  },
+  "extra": {
+    "installer-types": ["application"],
+    "installer-paths": {
+      "/www/database-admin/": ["wp-cloud/phpmyadmin"]
+    }
+  }
+}

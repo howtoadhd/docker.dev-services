@@ -1,3 +1,11 @@
+FROM composer as composer
+
+COPY ./fs/www/composer.json /www/composer.json
+
+RUN set -x \
+    && cd /www \
+    && composer update --no-autoloader
+
 FROM alpine:3.6
 
 RUN set -x \
@@ -44,6 +52,7 @@ RUN set -x \
     && npm install aws-ses-local -g
 
 COPY ./fs /
+COPY --from=composer /www /www
 
 EXPOSE 80 443 3306 8080 8081 8082 11211
 
