@@ -1,0 +1,44 @@
+sudo: required
+
+services:
+  - docker
+
+stages:
+  - build
+  - promote
+
+before_install:
+  - curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+  - sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+  - sudo apt-get update
+  - sudo apt-get -y install docker-ce
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD";
+  - export TEMP_IMAGE="howtoadhd/travis-dump:howtoadhd_dev-services__${TRAVIS_COMMIT}"
+
+jobs:
+  include:
+
+    - stage: build
+      before_script:
+        - docker pull alpine:3.6
+      script:
+        - docker build --no-cache -t builder:dev-services .
+      after_success:
+        - docker tag builder:dev-services ${TEMP_IMAGE}
+        - docker push ${TEMP_IMAGE}
+
+    - stage: promote
+      before_script:
+        - docker pull ${TEMP_IMAGE}
+        - docker tag ${TEMP_IMAGE} builder:dev-services
+      script:
+        - |
+          if [ $$TRAVIS_PULL_REQUEST == 'false' ]; then
+            docker tag builder:dev-services howtoadhd/base-images:${TRAVIS_BRANCH};
+            docker push howtoadhd/base-images:${TRAVIS_BRANCH};
+          fi
+        - |
+          if [ $$TRAVIS_PULL_REQUEST == 'false' ] && [ $$TRAVIS_BRANCH == 'master' ]; then
+          	docker tag builder:dev-services howtoadhd/base-images:latest;
+          	docker push howtoadhd/base-images:latest;
+          fi
