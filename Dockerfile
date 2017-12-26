@@ -11,13 +11,34 @@ RUN set -x \
         nodejs \
         nodejs-npm \
         openssl \
+        php7-bz2 \
+        php7-ctype \
+        php7-curl \
+        php7-fpm \
+        php7-gd \
+        php7-json \
+        php7-mbstring \
+        php7-mysqli \
+        php7-opcache \
+        php7-openssl \
+        php7-session \
+        php7-xml \
+        php7-zip \
+        php7-zlib \
         ruby \
         supervisor \
     && rm -rf \
         /var/lib/mysql \
         /etc/haproxy \
         /etc/nginx \
-    && mkdir -p /run/mysqld \
+        /etc/php7/php-fpm.d \
+    && mkdir -p \
+        /run/mysqld \
+        /sessions \
+        /var/run/php/ \
+    && chown nobody:nobody \
+        /sessions \
+        /var/run/php/ \
     && chown mysql:mysql /run/mysqld \
     && gem install fakes3 --no-ri --no-rdoc \
     && npm install aws-ses-local -g
