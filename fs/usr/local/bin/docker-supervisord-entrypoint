@@ -8,6 +8,10 @@ export MYSQL_USER="${MYSQL_USER-app}"
 export MYSQL_PASSWORD="${MYSQL_PASSWORD-app}"
 export MYSQL_DATABASE="${MYSQL_DATABASE-app}"
 
+export ROOT_DOMAIN="${ROOT_DOMAIN-howtoadhd.pink}"
+
+tls-gen
+
 # first arg is `-f` or `--some-option`
 if [ "${1#-}" != "$1" ]; then
 	set -- supervisord "$@"

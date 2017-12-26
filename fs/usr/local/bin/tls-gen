@@ -1,0 +1,65 @@
+#!/bin/bash
+set -e
+
+CADIR="/data/ca"
+
+mkdir -p "${CADIR}"
+
+sed -i -e "s/%%!ROOT_DOMAIN!%%/${ROOT_DOMAIN}/" /etc/openssl.conf
+
+if [ -f ${CADIR}/dev.crt ]; then
+    CN=`openssl x509 -noout -subject -in ${CADIR}/dev.crt`
+
+    if [[ "${CN}" != "subject= /CN=${ROOT_DOMAIN}" ]]; then
+        ( >&2 echo "Existing certificate did not match \"subject= /CN=${ROOT_DOMAIN}\": ${CN}" )
+        rm -rf \
+        ${CADIR}/dev.key \
+        ${CADIR}/dev.csr \
+        ${CADIR}/dev.crt \
+        ${CADIR}/dev.pem
+    fi
+fi
+
+if [ ! -f ${CADIR}/dev.key ]; then
+    echo "Generating TLS Key"
+    rm -rf \
+        ${CADIR}/dev.key \
+        ${CADIR}/dev.csr \
+        ${CADIR}/dev.crt \
+        ${CADIR}/dev.pem
+
+    openssl genrsa \
+        -out ${CADIR}/dev.key \
+        2048
+fi
+
+if [ ! -f ${CADIR}/dev.crt ]; then
+    echo "Generating TLS Certificate"
+    rm -rf \
+        ${CADIR}/dev.csr \
+        ${CADIR}/dev.crt \
+        ${CADIR}/dev.pem
+
+    openssl req \
+        -new \
+        -nodes \
+        -key ${CADIR}/dev.key \
+        -out ${CADIR}/dev.csr \
+        -config /etc/openssl.conf
+
+    openssl x509 \
+        -req \
+        -days 3650 \
+        -in ${CADIR}/dev.csr \
+        -signkey ${CADIR}/dev.key \
+        -out ${CADIR}/dev.crt \
+        -extensions v3_req \
+        -extfile /etc/openssl.conf
+fi
+
+if [ ! -f ${CADIR}/dev.pem ]; then
+    echo "Concatenating TLS Certificate & Key for HAProxy"
+    rm -rf ${CADIR}/dev.pem
+
+    cat ${CADIR}/dev.crt ${CADIR}/dev.key > ${CADIR}/dev.pem
+fi

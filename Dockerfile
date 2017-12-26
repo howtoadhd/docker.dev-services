@@ -6,6 +6,7 @@ RUN set -x \
         mariadb \
         mariadb-client \
         memcached \
+        openssl \
         supervisor \
     && rm -rf \
         /var/lib/mysql \
