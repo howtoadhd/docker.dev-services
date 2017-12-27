@@ -6,6 +6,16 @@ RUN set -x \
     && cd /www \
     && composer update --no-autoloader
 
+FROM ruby:alpine as ruby
+
+RUN set -x \
+    && apk add --no-cache \
+        git \
+    && git clone -b master git://github.com/camjackson/fake-s3-1.git /tmp/fakes3 \
+    && cd /tmp/fakes3 \
+    && rake build fakes3.gemspec \
+    && ls -la
+
 FROM alpine:3.6
 
 RUN set -x \
@@ -48,11 +58,16 @@ RUN set -x \
         /sessions \
         /var/run/php/ \
     && chown mysql:mysql /run/mysqld \
-    && gem install fakes3 --no-ri --no-rdoc \
     && npm install aws-ses-local -g
 
 COPY ./fs /
 COPY --from=composer /www /www
+COPY --from=ruby /tmp/fakes3/pkg/ /tmp/gems/
+
+RUN set -x \
+    && for file in /tmp/gems/*; do gem install "$file" --no-ri --no-rdoc; done \
+    && rm -rf /tmp/*
+
 
 EXPOSE 80 443 3306 11211
 
