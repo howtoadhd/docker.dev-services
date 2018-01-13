@@ -45,5 +45,4 @@ jobs:
 
 notifications:
   webhooks:
-    urls:
-      secure: "LZDhAwUtLME8C4cL9Fgf9c80CqLSh9haCok+fLo324Xn+9bAG2lq4Z1f6/Ivpg+Epg1A+v1URxWHGgJuid9GQxVWJ8mfZ6D9m5TlKND+7GjFNZZytZboSL6op+CEojbJJkJvW0fSQpResD5jBZbP+TEHE7Bga1yuMtPUkKtoT0cWoTVi7r/OVJ4tMUsuQA2/Aop3zLUzEOj6+ICzvaIF8J68pKDHZTsVP9bJst643hTWnnglhIHqSrERWYDvhdE18MMGWsz0b7vKfdD9dpHuo0sJlvOsXRRY0KAhun/WD/NLf1c88Dcy3uarq8Df0b9jorJlAgnULFvZg94ViAcny9Phwn/KAug+I21usflcNjzkbfoTDYy654I4jdbzMCw5IdJESH7JXrjKhUMzh7AvPYSbr5LCUsunXknSFRYB649YuxHDjDf5abo5KCpwkmXCxB54MFM/HFVsGSngYPEDUX9Ze+2X/XHwYpttSpxbJ+eQlAQHePA0IePjWUL6DmSVp/KbT2K28arKKN/pAZndb8AOIL3j0Ht17Um2wnt4RA3QpbZuAFxdgvLllHCvEmXk11KKdGs5v5j8NVYoy872hchb4yC2l5x+mZ29xfrpUBSl5N6oNWbGDOF5uIOuWfhJdB6jZxlrQ8ibC1qOX/DXo9lBeP0Ck4nAnBb4TMvhL9w="
+    - https://h2a-hubot.herokuapp.com/webhooks/travis
