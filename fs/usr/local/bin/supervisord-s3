@@ -3,4 +3,5 @@ set -e
 
 fakes3 \
     -r /data/s3 \
-    -p 8081
+    -p 8081 \
+    -H s3.aws.${ROOT_DOMAIN}
