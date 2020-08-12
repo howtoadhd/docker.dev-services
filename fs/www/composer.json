@@ -2,7 +2,7 @@
   "name": "howtoadhd/dev-services",
   "type": "project",
   "require": {
-    "oomphinc/composer-installers-extender": "^1.1",
+    "oomphinc/composer-installers-extender": "^2.0",
     "wp-cloud/phpmemcacheadmin": "*",
     "wp-cloud/phpmyadmin": "*"
   },
