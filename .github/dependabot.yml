@@ -1,0 +1,7 @@
+version: 2
+updates:
+- package-ecosystem: composer
+  directory: "/fs/www"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
